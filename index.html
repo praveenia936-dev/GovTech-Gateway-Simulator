@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GovTech API Gateway Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="header">
+        <div>
+            <h1>GovTech Gateway Portal</h1>
+            <p>Smart Incident Routing & Dispatch Engine</p>
+        </div>
+        <div style="width: 150px;">
+            <select id="themeSelect" onchange="changeTheme()" style="margin: 0; padding: 8px;">
+                <option value="system">System Mode</option>
+                <option value="dark">Dark Theme</option>
+                <option value="light">Light Theme</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="nav-tabs">
+        <button id="tabMainBtn" class="active" onclick="showPage('mainPage')">Live Simulator</button>
+        <button id="tabDashBtn" onclick="showPage('dashPage')">Config Dashboard</button>
+    </div>
+
+    <div id="mainPage" class="page active">
+        <div class="box">
+            <h3>1. Submit Citizen Report</h3>
+
+            <div style="display: flex; gap: 12px;">
+                <div style="flex: 1;">
+                    <label>Citizen Name</label>
+                    <input type="text" id="citizenName" placeholder="e.g., Alex Tan">
+                </div>
+                <div style="flex: 1;">
+                    <label>Contact Number / Email</label>
+                    <input type="text" id="citizenContact" placeholder="e.g., +65 9123 4567">
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 12px;">
+                <div style="flex: 1;">
+                    <label>Category</label>
+                    <select id="categorySelect"></select>
+                </div>
+                <div style="flex: 1;">
+                    <label>Target Agency</label>
+                    <select id="agencySelect"></select>
+                </div>
+            </div>
+
+            <label>Issue Description</label>
+            <textarea id="issueInput" rows="3"
+                placeholder="Describe the incident (e.g., Water pipe burst near block main gate...)"></textarea>
+
+            <button class="btn-submit" onclick="submitReport()">Transmit Report to Queue</button>
+        </div>
+
+        <div class="box">
+            <h3>2. Active Government Processing Queue</h3>
+            <div id="queueContainer">
+                <div class="empty-state">No active incidents in system queue.</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashPage" class="page">
+        <div class="box">
+            <h3>Add System Configuration Parameters</h3>
+
+            <label>Type to Add</label>
+            <select id="addTypeSelect">
+                <option value="keyword">Priority Keyword Trigger</option>
+                <option value="category">Category</option>
+                <option value="agency">Agency Endpoint</option>
+            </select>
+
+            <label>Name / Parameter Value</label>
+            <input type="text" id="addValueInput" placeholder="e.g., Hazard, PUB, Structural...">
+
+            <button class="btn-submit" onclick="addNewConfigItem()">Add Parameter</button>
+        </div>
+
+        <div class="box">
+            <h3>Active Gateway Settings</h3>
+
+            <label style="margin-top: 10px;">Priority Keywords (Triggers Immediate Promotion)</label>
+            <div id="keywordsList"></div>
+
+            <label style="margin-top: 15px;">Registered Categories</label>
+            <div id="categoriesList"></div>
+
+            <label style="margin-top: 15px;">Registered Government Agencies</label>
+            <div id="agenciesList"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
